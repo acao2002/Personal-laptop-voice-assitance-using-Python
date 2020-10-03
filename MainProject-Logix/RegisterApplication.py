@@ -1,9 +1,9 @@
 import json
 
 with open('Apps-Registered.json', 'r') as fp:
-    Sites = json.load(fp)
+    Apps = json.load(fp)
 with open('Sites-Registed.json', 'r') as wp:
-    Apps =  json.load(wp)
+    Sites =  json.load(wp)
 
 
 

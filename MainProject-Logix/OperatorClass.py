@@ -6,7 +6,7 @@ class Operator:
     Websites = []
     AppNames = []
     Apps = []
-    OpenedSites = ["newtab"]
+    OpenedSites = []
     runtime = 0;
     options = webdriver.ChromeOptions() 
     options.add_argument("user-data-dir=C:\\Users\\Andrew Cao\\AppData\\Local\\Google\\Chrome\\User Data\\Profile 1")
@@ -28,26 +28,23 @@ class Operator:
 
         if name in self.SiteNames:
             if self.runtime == 0:
-                self.driver = webdriver.Chrome('C:\\Users\\Andrew Cao\\Documents\\GitHub\\Personal-laptop-voice-assitance-using-Python\chromedriver\chromedriver.exe',chrome_options=self.options)
+                self.driver = webdriver.Chrome('C:\\Users\\Andrew Cao\\Documents\\GitHub\\Personal-laptop-voice-assitance-using-Python\chromedriver\chromedriver.exe',options=self.options)
                 self.originwindow = self.driver.current_window_handle
             openSite = self.Websites[self.SiteNames.index(name)]
+            self.OpenedSites.insert(0,name)
             self.driver.execute_script('window.open("{}","_blank");'.format(openSite))
-            self.OpenedSites.append(name)
             self.runtime +=1
         elif name in self.AppNames:
              os.startfile(self.Apps[self.AppNames.index(name)])
     
     def Close(self, name):
 
-        if name in self.OpenedSites:
-            if self.OpenedSites.index(name) == len(self.OpenedSites)-1:
-                print(self.OpenedSites.index(name))
-                self.driver.close()
-                self.OpenedSites.remove(name)
-            else: 
-                self.driver.switch_to_window(self.driver.window_handles[self.OpenedSites.index(name)])
-                self.driver.close()
-                self.OpenedSites.remove(name)
+        if name in self.OpenedSites:   
+            a = self.OpenedSites.index(name)+1
+            self.driver.switch_to.window(self.driver.window_handles[a])
+            self.driver.close()
+            self.OpenedSites.remove(name)
+            self.driver.switch_to.window(self.driver.window_handles[a-1])
         else: 
              os.system('TASKKILL /F /IM ' + name +'.exe')
 
@@ -64,13 +61,16 @@ class Operator:
 Operator = Operator()
 
 Operator.addApp('audacity','C:\\Program Files (x86)\\Audacity\\audacity.exe')
-Operator.Run('open','audacity')
+
 
 Operator.addWebsite("facebook", "https://www.facebook.com")
 Operator.addWebsite("email", "https://www.gmail.com")
+Operator.addWebsite("insta", "https://www.instagram.com")
+Operator.Run('open',"email")
 Operator.Run('open',"facebook")
-Operator.Run('close',"facebook")
-Operator.Run('close',"audacity")
+Operator.Run('open',"insta")
+
+Operator.Run('close',"insta")
 print (Operator.OpenedSites)
 '''
 

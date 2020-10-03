@@ -4,6 +4,9 @@ import speech_recognition as sr
 import json
 from OperatorClass import Operator 
 from VoiceInputClass import VoiceAI 
+import pyttsx3
+
+engine = pyttsx3.init()
 
 with open('Apps-Registered.json', 'r') as fp:
     Apps = json.load(fp)
@@ -35,14 +38,32 @@ def returnName(string):
         for a in (Operator.SiteNames+Operator.AppNames):
             if s == a:
                 return s
-            
+
+logixorder = 0          
 while True:
-    print("say sth")
+    if logixorder == 0:
+        engine.say("Hi I am Logix, How can I help you")
+        engine.runAndWait()
+    elif logixorder == 2:
+        engine.say("Please repeat your order")
+        engine.runAndWait()
+    else: 
+        engine.say("How else can I help you")
+        engine.runAndWait()
     VoiceAI.Listen()
-    Command = VoiceAI.Recognize().lower().split()
+    Command = str(VoiceAI.Recognize()).lower().split()
     method = returnMethod(Command)
     name = returnName(Command)
+
     print(method, name)
     Operator.Run(method, name)
+    if method != None and name != None:
+        engine.say("Task completed")
+        engine.runAndWait()
+        logixorder = 1
+    else:
+        engine.say("I could not understand you sir")
+        engine.runAndWait()
+        logixorder = 2
     
 
