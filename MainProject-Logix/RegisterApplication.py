@@ -6,6 +6,8 @@ with open('Sites-Registed.json', 'r') as wp:
     Apps =  json.load(wp)
 
 
+
+
 while True: 
    
     print("Sites registered:")
@@ -18,17 +20,23 @@ while True:
     print()
     x = input()
     if x == "w":
+        S = {}
         print("Please tell us your site name")
         sitename = input()
         print("Please tell us your site URL")
         siteURL = input()
-        Sites[sitename] = siteURL
+        S['name'] = sitename
+        S['url'] = siteURL
+        Sites.append(S)
     if x =="a": 
+        A = {}
         print("Please tell us your app name")
         appname = input()
         print("Please tell us your app path(Ex C:\\Users\\app.exe)")
         appPath = input()
-        Apps[appname] = appPath
+        A['name'] = appname
+        A['path'] = appPath
+        Apps.append(A)
     
     if x =="s":
         with open('Apps-Registered.json', 'w') as fp:

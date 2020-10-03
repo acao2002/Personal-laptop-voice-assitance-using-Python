@@ -7,7 +7,7 @@ class Operator:
     AppNames = []
     Apps = []
     OpenedSites = ["newtab"]
-
+    runtime = 0;
     options = webdriver.ChromeOptions() 
     options.add_argument("user-data-dir=C:\\Users\\Andrew Cao\\AppData\\Local\\Google\\Chrome\\User Data\\Profile 1")
      #Path to your chrome profile
@@ -27,22 +27,27 @@ class Operator:
     def Open(self, name):
 
         if name in self.SiteNames:
-            if len(self.OpenedSites) == 1:
+            if self.runtime == 0:
                 self.driver = webdriver.Chrome('C:\\Users\\Andrew Cao\\Documents\\GitHub\\Personal-laptop-voice-assitance-using-Python\chromedriver\chromedriver.exe',chrome_options=self.options)
-            self.OpenedSites.append(name)
+                self.originwindow = self.driver.current_window_handle
             openSite = self.Websites[self.SiteNames.index(name)]
             self.driver.execute_script('window.open("{}","_blank");'.format(openSite))
-        
+            self.OpenedSites.append(name)
+            self.runtime +=1
         elif name in self.AppNames:
              os.startfile(self.Apps[self.AppNames.index(name)])
     
     def Close(self, name):
 
         if name in self.OpenedSites:
-            self.driver.switch_to_window(self.driver.window_handles[self.OpenedSites.index(name)])
-            self.OpenedSites.remove(name)
-            self.driver.close()
-        
+            if self.OpenedSites.index(name) == len(self.OpenedSites)-1:
+                print(self.OpenedSites.index(name))
+                self.driver.close()
+                self.OpenedSites.remove(name)
+            else: 
+                self.driver.switch_to_window(self.driver.window_handles[self.OpenedSites.index(name)])
+                self.driver.close()
+                self.OpenedSites.remove(name)
         else: 
              os.system('TASKKILL /F /IM ' + name +'.exe')
 
@@ -54,7 +59,7 @@ class Operator:
             self.Close(name)
         else: 
             pass
-
+         
 '''
 Operator = Operator()
 

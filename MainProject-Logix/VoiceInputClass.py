@@ -23,7 +23,7 @@ class VoiceAI:
             print("Could not request results from Google Speech Recognition service; {0}".format(e))
             return 0
 
-VoiceAI = VoiceAI()
+#VoiceAI = VoiceAI()
 
 '''
 while True:
