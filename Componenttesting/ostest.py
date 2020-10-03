@@ -5,4 +5,4 @@ while True:
     if a == "open":
         os.startfile('C:\\Program Files (x86)\\Audacity\\audacity.exe')
     else: 
-        os.system('TASKKILL /F /IM audacity.exe')
+        os.system('TASKKILL /F /IM '+'audacity'+'.exe')
