@@ -52,6 +52,8 @@ class Operator:
             self.Open(name)
         if method == "close":
             self.Close(name)
+        else: 
+            pass
 
 '''
 Operator = Operator()
