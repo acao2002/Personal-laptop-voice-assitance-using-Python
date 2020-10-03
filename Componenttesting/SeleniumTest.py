@@ -6,5 +6,7 @@ driver = webdriver.Chrome('C:\\Users\\Andrew Cao\\Documents\\GitHub\\Personal-la
 driver.get('https://www.facebook.com')
 
 driver.execute_script("window.open('https://www.gmail.com');")
+driver.switch_to_window(driver.window_handles[1])
 
+driver.find_element_by_xpath('//*[@id=":jh"]/div/div[2]').click()
 
