@@ -56,7 +56,7 @@ while True:
     name = returnName(Command)
 
     print(method, name)
-    Operator.Run(method, name)
+   
     if method != None and name != None:
         engine.say("Task completed")
         engine.runAndWait()
@@ -66,4 +66,4 @@ while True:
         engine.runAndWait()
         logixorder = 2
     
-
+    Operator.Run(method, name)
